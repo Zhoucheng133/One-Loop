@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path/path.dart' as p;
 
 class LanguageType{
   String name;
@@ -66,6 +69,17 @@ class Controller extends GetxController {
   void removeAudio(String name){
     audioList.removeWhere((element) => element.name==name);
     prefs.setStringList("audioList", audioList.map((e) => jsonEncode(e.toJson())).toList());
+  }
+
+  Future<void> reset() async {
+    audioList.clear();
+    prefs.clear();
+    final appDir = await getApplicationDocumentsDirectory();
+    final audioDir = Directory(p.join(appDir.path, 'audioFiles'));
+
+    if (await audioDir.exists()) {
+      await audioDir.delete(recursive: true);
+    }
   }
 
   Future<void> init() async {

@@ -20,3 +20,29 @@ void showErrOkDialog(BuildContext context, String title, String content) {
     },
   );
 }
+
+Future<bool?> showConfirmDialog(BuildContext context, String title, String content) async {
+  return await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            child: Text('cancel'.tr),
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            }
+          ),
+          TextButton(
+            child: Text('ok'.tr),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            }
+          ),
+        ]
+      );
+    }
+  );
+}

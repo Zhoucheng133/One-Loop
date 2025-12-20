@@ -12,8 +12,11 @@ const Map<String, String> zhCN = {
   'name': '名称',
   'addFailed': '添加失败',
   'ok': '好的',
+  'cancel': '取消',
   'emptyName': '名称不能为空',
   'emptyLink': '链接不能为空',
   'emptyFile': '文件不能为空',
   'duplicateName': '名称重复',
+  'reset': '重置',
+  'resetContent': '确定要重置吗？',
 };
