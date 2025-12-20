@@ -49,20 +49,31 @@ class _AddViewState extends State<AddView> {
     if (type == AudioType.file && filePath.isNotEmpty) {
       final pickedFile = File(filePath);
       final appDir = await getApplicationDocumentsDirectory();
+      final audioDir = Directory(p.join(appDir.path, 'audioFiles'));
+
+      if (!await audioDir.exists()) {
+        await audioDir.create(recursive: true);
+      }
+
       final timestamp = DateTime.now().millisecondsSinceEpoch;
       final fileName = '${timestamp}_${p.basename(pickedFile.path)}';
-      final savedFile = File('${appDir.path}/$fileName');
+      final savedFile = File(p.join(audioDir.path, fileName));
       try {
         await pickedFile.copy(savedFile.path);
       } catch (e) {
         if(context.mounted) showErrOkDialog(context, "addFailed".tr, 'fileCopyFailed'.tr);
         return;
       }
-
-      controller.audioList.add(AudioItem(name: nameController.text, path: savedFile.path, type: type));
-    }else{
-      controller.audioList.add(AudioItem(name: nameController.text, path: linkController.text, type: type));
+      controller.addAudio(
+        AudioItem(name: nameController.text, path: savedFile.path, type: type)
+      );
     }
+    else{
+      controller.addAudio(
+        AudioItem(name: nameController.text, path: linkController.text, type: type)
+      );
+    }
+    Get.back();
   }
 
   @override
