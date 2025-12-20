@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_loop/controllers/controller.dart';
+import 'package:one_loop/views/add_view.dart';
 import 'package:one_loop/views/home_view.dart';
 import 'package:one_loop/views/settings_view.dart';
 
@@ -32,7 +33,7 @@ class _MainViewState extends State<MainView> {
         ),
         floatingActionButton: controller.currentPage.value==Pages.home ? FloatingActionButton(
           onPressed: () {
-            // TODO 添加
+            Get.to(()=>AddView());
           },
           child: Icon(Icons.add_rounded),
         ) : null,

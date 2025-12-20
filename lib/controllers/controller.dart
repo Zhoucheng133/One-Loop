@@ -19,7 +19,6 @@ List<LanguageType> get supportedLocales => [
 enum Pages{
   home,
   settings,
-  play,
 }
 
 enum AudioType{
