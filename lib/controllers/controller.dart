@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:get/get.dart';
@@ -31,6 +32,22 @@ class AudioItem{
   String path;
   AudioType type;
   AudioItem({required this.name, required this.path, required this.type});
+
+  factory AudioItem.fromJson(Map<String, dynamic> json) {
+    return AudioItem(
+      name: json['name'],
+      path: json['path'],
+      type: AudioType.values[json['type']],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'path': path,
+      'type': type.index,
+    };
+  }
 }
 
 class Controller extends GetxController {
@@ -40,6 +57,16 @@ class Controller extends GetxController {
   Rx<Pages> currentPage=Rx(Pages.home);
 
   late SharedPreferences prefs;
+
+  void addAudio(AudioItem audio){
+    audioList.add(audio);
+    prefs.setStringList("audioList", audioList.map((e) => jsonEncode(e.toJson())).toList());
+  }
+
+  void removeAudio(String name){
+    audioList.removeWhere((element) => element.name==name);
+    prefs.setStringList("audioList", audioList.map((e) => jsonEncode(e.toJson())).toList());
+  }
 
   Future<void> init() async {
     prefs=await SharedPreferences.getInstance();
@@ -57,6 +84,8 @@ class Controller extends GetxController {
     }else{
       lang.value=supportedLocales[langIndex];
     }
+
+    audioList.value=prefs.getStringList("audioList")?.map((e) => AudioItem.fromJson(jsonDecode(e))).toList() ?? [];
   }
   
   void changeLanguage(int index){

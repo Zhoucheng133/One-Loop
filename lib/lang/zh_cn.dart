@@ -9,5 +9,11 @@ const Map<String, String> zhCN = {
   'type': '类型',
   'link': '链接',
   'select': '选择',
-  'name': '名称'
+  'name': '名称',
+  'addFailed': '添加失败',
+  'ok': '好的',
+  'emptyName': '名称不能为空',
+  'emptyLink': '链接不能为空',
+  'emptyFile': '文件不能为空',
+  'duplicateName': '名称重复',
 };

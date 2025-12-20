@@ -1,7 +1,13 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_loop/components/add_item.dart';
 import 'package:one_loop/controllers/controller.dart';
+import 'package:one_loop/dialogs/dialogs.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 
 class AddView extends StatefulWidget {
   const AddView({super.key});
@@ -16,6 +22,48 @@ class _AddViewState extends State<AddView> {
   AudioType type = AudioType.file;
   final linkController=TextEditingController();
   final nameController=TextEditingController();
+  String filePath="";
+
+  void add(BuildContext context) async {
+
+    final index=controller.audioList.indexWhere((element) => element.name == nameController.text);
+
+    if (nameController.text.isEmpty) {
+      showErrOkDialog(context, "addFailed".tr, 'emptyName'.tr);
+      return;
+    }else if(index!=-1){
+      showErrOkDialog(context, "addFailed".tr, 'duplicateName'.tr);
+      return;
+    }else if (type == AudioType.file) {
+      if (filePath.isEmpty) {
+        showErrOkDialog(context, "addFailed".tr, 'emptyFile'.tr);
+        return;
+      }
+    }else if (type == AudioType.network) {
+      if (linkController.text.isEmpty) {
+        showErrOkDialog(context, "addFailed".tr, 'emptyLink'.tr);
+        return;
+      }
+    }
+
+    if (type == AudioType.file && filePath.isNotEmpty) {
+      final pickedFile = File(filePath);
+      final appDir = await getApplicationDocumentsDirectory();
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final fileName = '${timestamp}_${p.basename(pickedFile.path)}';
+      final savedFile = File('${appDir.path}/$fileName');
+      try {
+        await pickedFile.copy(savedFile.path);
+      } catch (e) {
+        if(context.mounted) showErrOkDialog(context, "addFailed".tr, 'fileCopyFailed'.tr);
+        return;
+      }
+
+      controller.audioList.add(AudioItem(name: nameController.text, path: savedFile.path, type: type));
+    }else{
+      controller.audioList.add(AudioItem(name: nameController.text, path: linkController.text, type: type));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +81,7 @@ class _AddViewState extends State<AddView> {
                 size: 30,
               ),
               onPressed: () {
-                Get.back();
+                add(context);
               },
             ),
           ),
@@ -82,14 +130,29 @@ class _AddViewState extends State<AddView> {
             type == AudioType.file ?
             AddItem(
               label: 'file'.tr,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: FilledButton(
-                  onPressed: (){
-                    // TODO 选择文件
-                  }, 
-                  child: Text('select'.tr)
-                ),
+              child: Row(
+                children: [
+                  FilledButton(
+                    onPressed: () async {
+                      FilePickerResult? result = await FilePicker.platform.pickFiles();
+                      if (result != null) {
+                        setState(() {
+                          filePath = result.files.single.path!;
+                        });
+                      }
+                    }, 
+                    child: Text('select'.tr)
+                  ),
+                  const SizedBox(width: 10,),
+                  Expanded(
+                    child: filePath.isEmpty ?
+                    Container() :
+                    Text(
+                      p.basename(filePath),
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
               )
             ) :
             AddItem(
@@ -108,5 +171,12 @@ class _AddViewState extends State<AddView> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    linkController.dispose();
+    nameController.dispose();
+    super.dispose();
   }
 }
