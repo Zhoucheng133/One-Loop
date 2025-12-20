@@ -1,21 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:one_loop/controllers/audio.dart';
+import 'package:one_loop/controllers/controller.dart';
+import 'package:one_loop/lang/en_us.dart';
+import 'package:one_loop/lang/zh_cn.dart';
+import 'package:one_loop/views/home_view.dart';
 
 void main() {
+  final controller=Get.put(Controller());
+  controller.init();
+  Get.put(Audio());
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainTranslations extends Translations {
+  @override
+  Map<String, Map<String, String>> get keys => {
+    'en_US': enUS,
+    'zh_CN': zhCN,
+  };
+}
+
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+
+  final controller = Get.find<Controller>();
+  final Audio audio=Audio();
+
+  @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    final brightness = MediaQuery.of(context).platformBrightness;
+    return GetMaterialApp(
+      translations: MainTranslations(),
+      locale: Get.deviceLocale,
+      fallbackLocale: Locale('en', 'US'),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('zh', 'CN'),
+        Locale('zh', 'TW'),
+      ],
+      theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
+        textTheme: GoogleFonts.notoSansScTextTheme().apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white, 
         ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.pink,
+          brightness: Brightness.dark,
+        ),
+      ) : ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
+        textTheme: GoogleFonts.notoSansScTextTheme(),
       ),
+      debugShowCheckedModeBanner: false,
+      home: HomeView()
     );
   }
 }
