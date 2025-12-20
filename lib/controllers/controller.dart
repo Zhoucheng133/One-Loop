@@ -16,6 +16,11 @@ List<LanguageType> get supportedLocales => [
   LanguageType("繁體中文", Locale("zh", "TW")),
 ];
 
+enum Pages{
+  home,
+  settings,
+  play,
+}
 
 enum AudioType{
   file,
@@ -33,6 +38,7 @@ class Controller extends GetxController {
   RxBool isPlaying = false.obs;
   RxList<AudioItem> audioList = RxList<AudioItem>([]);
   Rx<LanguageType> lang=Rx(supportedLocales[0]);
+  Rx<Pages> currentPage=Rx(Pages.home);
 
   late SharedPreferences prefs;
 

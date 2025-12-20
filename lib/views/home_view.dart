@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:one_loop/components/audio_list.dart';
 import 'package:one_loop/controllers/controller.dart';
 
 class HomeView extends StatefulWidget {
@@ -13,26 +12,27 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
 
   final controller = Get.find<Controller>();
-
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('OneLoop'),
+    return controller.audioList.isEmpty ? Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.close_rounded,
+            size: 30,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            'listNone'.tr,
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ],
       ),
-      body: controller.audioList.isEmpty ? Center(
-        child: Column(
-          children: [
-            
-          ],
-        ),
-      ) : AudioList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          
-        },
-        child: Icon(Icons.add_rounded),
-      ),
-    );
+    ) : Container();
   }
 }

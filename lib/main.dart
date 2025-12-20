@@ -6,7 +6,7 @@ import 'package:one_loop/controllers/audio.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/lang/en_us.dart';
 import 'package:one_loop/lang/zh_cn.dart';
-import 'package:one_loop/views/home_view.dart';
+import 'package:one_loop/main_view.dart';
 
 void main() {
   final controller=Get.put(Controller());
@@ -66,7 +66,7 @@ class _MainAppState extends State<MainApp> {
         textTheme: GoogleFonts.notoSansScTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeView()
+      home: MainView()
     );
   }
 }
