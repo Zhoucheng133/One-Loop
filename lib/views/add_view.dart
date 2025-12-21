@@ -82,6 +82,7 @@ class _AddViewState extends State<AddView> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('add'.tr),
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
         scrolledUnderElevation: 0.0,
         actions: [
           Padding(

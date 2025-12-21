@@ -22,6 +22,7 @@ class _MainViewState extends State<MainView> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(controller.currentPage.value.name.tr),
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
           scrolledUnderElevation: 0.0,
         ),
         body: IndexedStack(
