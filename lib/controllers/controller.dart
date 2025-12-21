@@ -66,8 +66,17 @@ class Controller extends GetxController {
     prefs.setStringList("audioList", audioList.map((e) => jsonEncode(e.toJson())).toList());
   }
 
-  void removeAudio(String name){
-    audioList.removeWhere((element) => element.name==name);
+  void removeAudio(AudioItem audio){
+    audioList.removeWhere((element) => element.name==audio.name);
+    if(audio.type==AudioType.file){
+      File(audio.path).delete();
+    }
+    prefs.setStringList("audioList", audioList.map((e) => jsonEncode(e.toJson())).toList());
+  }
+
+  void rename(String oldName, String newName){
+    audioList.firstWhere((element) => element.name==oldName).name=newName;
+    audioList.refresh();
     prefs.setStringList("audioList", audioList.map((e) => jsonEncode(e.toJson())).toList());
   }
 

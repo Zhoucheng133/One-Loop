@@ -19,4 +19,8 @@ const Map<String, String> zhCN = {
   'duplicateName': '名称重复',
   'reset': '重置',
   'resetContent': '确定要重置吗？',
+  'delete': '删除',
+  'rename': '重命名',
+  'deleteAudio': '确定要删除吗?',
+  'deleteAudioContent': '这个操作无法撤销!',
 };
