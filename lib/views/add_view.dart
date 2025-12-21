@@ -146,7 +146,10 @@ class _AddViewState extends State<AddView> {
                 children: [
                   FilledButton(
                     onPressed: () async {
-                      FilePickerResult? result = await FilePicker.platform.pickFiles();
+                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['mp3', 'wav', 'm4a', 'aac', 'ogg', 'flac'],
+                      );
                       if (result != null) {
                         setState(() {
                           filePath = result.files.single.path!;
