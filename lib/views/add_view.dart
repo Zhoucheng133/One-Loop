@@ -43,6 +43,9 @@ class _AddViewState extends State<AddView> {
       if (linkController.text.isEmpty) {
         showErrOkDialog(context, "addFailed".tr, 'emptyLink'.tr);
         return;
+      }else if(!linkController.text.startsWith('http') && !linkController.text.startsWith('https')){
+        showErrOkDialog(context, "addFailed".tr, 'invalidLink'.tr);
+        return;
       }
     }
 
@@ -67,8 +70,7 @@ class _AddViewState extends State<AddView> {
       controller.addAudio(
         AudioItem(name: nameController.text, path: fileName, type: type)
       );
-    }
-    else{
+    }else{
       controller.addAudio(
         AudioItem(name: nameController.text, path: linkController.text, type: type)
       );
