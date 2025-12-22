@@ -32,6 +32,7 @@ enum AudioType{
 
 class AudioItem{
   String name;
+  // 如果是文件，存储文件名，如果是网络，存储网络地址
   String path;
   AudioType type;
   AudioItem({required this.name, required this.path, required this.type});
@@ -54,7 +55,6 @@ class AudioItem{
 }
 
 class Controller extends GetxController {
-  RxBool isPlaying = false.obs;
   RxList<AudioItem> audioList = RxList<AudioItem>([]);
   Rx<LanguageType> lang=Rx(supportedLocales[0]);
   Rx<Pages> currentPage=Rx(Pages.home);

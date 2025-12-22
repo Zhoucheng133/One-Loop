@@ -65,7 +65,7 @@ class _AddViewState extends State<AddView> {
         return;
       }
       controller.addAudio(
-        AudioItem(name: nameController.text, path: savedFile.path, type: type)
+        AudioItem(name: nameController.text, path: fileName, type: type)
       );
     }
     else{

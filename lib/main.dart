@@ -18,7 +18,6 @@ void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   final controller=Get.put(Controller());
   controller.init();
-  Get.put(Audio());
   runApp(const MainApp());
 }
 

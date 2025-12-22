@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/dialogs/dialogs.dart';
+import 'package:one_loop/views/play_view.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -31,6 +32,37 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     listFiles();
+  }
+
+  void showSheet(BuildContext context, int index){
+    showModalBottomSheet(
+      context: context, 
+      clipBehavior: Clip.antiAlias,
+      builder: (context)=>Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: Icon(Icons.edit_rounded),
+            title: Text('rename'.tr),
+            onTap: () async {
+              Navigator.pop(context);
+              await showRenameDialog(context, controller.audioList[index].name);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.delete_rounded),
+            title: Text('delete'.tr),
+            onTap: () async {
+              Navigator.pop(context);
+              if(await showConfirmDialog(context, "deleteAudio".tr, "deleteAudioContent".tr, okText: 'delete') ?? false){
+                controller.removeAudio(controller.audioList[index]);
+              }
+            },
+          ),
+          SizedBox(height: MediaQuery.of(context).padding.bottom,),
+        ],
+      )
+    );
   }
   
   @override
@@ -69,40 +101,12 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             trailing: IconButton(
-              onPressed: (){
-                showModalBottomSheet(
-                  context: context, 
-                  clipBehavior: Clip.antiAlias,
-                  builder: (context)=>Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        leading: Icon(Icons.edit_rounded),
-                        title: Text('rename'.tr),
-                        onTap: () async {
-                          Navigator.pop(context);
-                          await showRenameDialog(context, controller.audioList[index].name);
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.delete_rounded),
-                        title: Text('delete'.tr),
-                        onTap: () async {
-                          Navigator.pop(context);
-                          if(await showConfirmDialog(context, "deleteAudio".tr, "deleteAudioContent".tr, okText: 'delete') ?? false){
-                            controller.removeAudio(controller.audioList[index]);
-                          }
-                        },
-                      ),
-                      SizedBox(height: MediaQuery.of(context).padding.bottom,),
-                    ],
-                  )
-                );
-              }, 
+              onPressed: ()=>showSheet(context, index), 
               icon: Icon(Icons.more_vert_rounded)
             ),
+            onLongPress: () => showSheet(context, index),
             onTap: (){
-
+              Get.to(()=>PlayView(audioItem: controller.audioList[index],));
             },
           );
         },
