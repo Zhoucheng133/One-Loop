@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/dialogs/dialogs.dart';
 import 'package:one_loop/views/play_view.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -19,20 +15,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
 
   final controller = Get.find<Controller>();
-
-  Future<void> listFiles() async {
-    final appDir = await getApplicationDocumentsDirectory();
-    final audioDir = Directory(p.join(appDir.path, 'audioFiles'));
-    if (audioDir.existsSync()) {
-      print(audioDir.listSync().length);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    listFiles();
-  }
 
   void showSheet(BuildContext context, int index){
     showModalBottomSheet(
