@@ -24,4 +24,8 @@ const Map<String, String> zhCN = {
   'deleteAudio': '确定要删除吗?',
   'deleteAudioContent': '这个操作无法撤销!',
   'invalidLink': '无效的链接',
+  'language': '语言',
+  'about': '关于',
+  'projUrl': '项目地址',
+  'license': '许可证',
 };

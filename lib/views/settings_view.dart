@@ -18,6 +18,11 @@ class _SettingsViewState extends State<SettingsView> {
     return ListView(
       children: [
         ListTile(
+          title: Text('language'.tr),
+          leading: Icon(Icons.language_rounded),
+          onTap: () => showLanguageDialog(context)
+        ),
+        ListTile(
           title: Text('reset'.tr),
           leading: Icon(Icons.replay_rounded),
           onTap: () async {
@@ -26,7 +31,12 @@ class _SettingsViewState extends State<SettingsView> {
               controller.reset();
             }
           },
-        )
+        ),
+        ListTile(
+          title: Text('about'.tr),
+          leading: Icon(Icons.info_rounded),
+          onTap: ()=>showAbout(context),
+        ),
       ],
     );
   }
