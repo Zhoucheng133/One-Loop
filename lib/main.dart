@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:one_loop/controllers/audio.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/lang/en_us.dart';
@@ -58,18 +57,20 @@ class _MainAppState extends State<MainApp> {
         Locale('zh', 'CN'),
         Locale('zh', 'TW'),
       ],
-      theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
-        textTheme: GoogleFonts.notoSansScTextTheme().apply(
-          bodyColor: Colors.white,
-          displayColor: Colors.white, 
-        ),
+      theme: ThemeData(
+        brightness: brightness,
+        fontFamily: 'PuHui', 
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.pink,
-          brightness: Brightness.dark,
+          seedColor: Colors.pinkAccent,
+          brightness: brightness,
         ),
-      ) : ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
-        textTheme: GoogleFonts.notoSansScTextTheme(),
+        textTheme: brightness==Brightness.dark ? ThemeData.dark().textTheme.apply(
+          fontFamily: 'PuHui',
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ) : ThemeData.light().textTheme.apply(
+          fontFamily: 'PuHui',
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: MainView()

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/dialogs/dialogs.dart';
 import 'package:one_loop/views/play_view.dart';
@@ -78,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
             // subtitle: Text(p.basename(controller.audioList[index].path)),
             subtitle: Text(
               controller.audioList[index].type==AudioType.file ? 'file'.tr : 'network'.tr,
-              style: GoogleFonts.notoSansSc(
+              style: TextStyle(
                 color: Colors.grey
               ),
             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:one_loop/controllers/audio.dart';
 import 'package:one_loop/controllers/controller.dart';
 
@@ -46,7 +45,7 @@ class _PlayViewState extends State<PlayView> {
           children: [
             Text(
               widget.audioItem.name,
-              style: GoogleFonts.notoSansSc(
+              style: TextStyle(
                 fontSize: 20.0,
               ),
             ),

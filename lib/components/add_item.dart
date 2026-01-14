@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AddItem extends StatefulWidget {
   final String label;
@@ -25,7 +24,7 @@ class _AddItemState extends State<AddItem> {
               width: 100,
               child: Text(
                 widget.label,
-                style: GoogleFonts.notoSansSc(
+                style: TextStyle(
                   fontSize: 16,
                 ),
               )
