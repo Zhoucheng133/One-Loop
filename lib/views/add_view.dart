@@ -85,29 +85,23 @@ class _AddViewState extends State<AddView> {
       header: FHeader.nested(
         title: Text('add'.tr),
         prefixes: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: FButton.icon(
-              style: FButtonStyle.ghost(),
-              onPress: () => Get.back(),
-              child: Icon(
-                FIcons.arrowLeft,
-                size: 25,
-              )
-            ),
+          FButton.icon(
+            style: FButtonStyle.ghost(),
+            onPress: () => Get.back(),
+            child: Icon(
+              FIcons.arrowLeft,
+              size: 25,
+            )
           )
         ],
         suffixes: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: FButton.icon(
-              style: FButtonStyle.ghost(),
-              onPress: () => add(context),
-              child: Icon(
-                FIcons.plus,
-                size: 25,
-              )
-            ),
+          FButton.icon(
+            style: FButtonStyle.ghost(),
+            onPress: () => add(context),
+            child: Icon(
+              FIcons.plus,
+              size: 25,
+            )
           ),
         ],
       ),
