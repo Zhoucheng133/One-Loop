@@ -36,9 +36,17 @@ class _PlayViewState extends State<PlayView> {
     return FScaffold(
       header: FHeader.nested(
         prefixes: [
-          FHeaderAction.back(
-            onPress: () => Get.back(),
-          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: FButton.icon(
+              style: FButtonStyle.ghost(),
+              onPress: () => Get.back(),
+              child: Icon(
+                FIcons.arrowLeft,
+                size: 25,
+              )
+            ),
+          )
         ],
         title: Padding(
           padding: const EdgeInsets.all(10.0),
