@@ -115,6 +115,7 @@ class _AddViewState extends State<AddView> {
         control: FTabControl.lifted(
           index: type == AudioType.file ? 0 : 1, 
           onChange: (int index){
+            FocusManager.instance.primaryFocus?.unfocus();
             setState(() {
               type = index == 0 ? AudioType.file : AudioType.network;
             });
@@ -129,6 +130,7 @@ class _AddViewState extends State<AddView> {
                 children: [
                   const SizedBox(height: 10),
                   FTextField(
+                    autofocus: true,
                     label: Text('name'.tr, style: TextStyle(fontFamily: 'PuHui'),),
                     control: FTextFieldControl.managed(
                       controller: nameController,
@@ -139,6 +141,7 @@ class _AddViewState extends State<AddView> {
                     children: [
                       FButton.raw(
                         onPress: () async {
+                          FocusManager.instance.primaryFocus?.unfocus();
                           FilePickerResult? result = await FilePicker.platform.pickFiles(
                             type: FileType.custom,
                             allowedExtensions: ['mp3', 'wav', 'm4a', 'aac', 'ogg', 'flac'],

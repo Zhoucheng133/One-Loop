@@ -92,7 +92,6 @@ class _HomeViewState extends State<HomeView> {
                 onPressed: ()=>showSheet(context, index), 
                 icon: Icon(Icons.more_vert_rounded)
               ),
-              onLongPress: () => showSheet(context, index),
               onPress: (){
                 Get.to(()=>PlayView(audioItem: controller.audioList[index],));
               },
