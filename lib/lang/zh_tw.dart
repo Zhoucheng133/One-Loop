@@ -33,4 +33,5 @@ const Map<String, String> zhTW = {
 
   'appSettings': '應用設定',
   'others': '其他',
+  'localFiles': '本地檔案',
 };

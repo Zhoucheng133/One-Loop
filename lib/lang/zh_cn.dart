@@ -33,4 +33,5 @@ const Map<String, String> zhCN = {
 
   'appSettings': '应用设置',
   'others': '其他',
+  'localFiles': '本地文件',
 };

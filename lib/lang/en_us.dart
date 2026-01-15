@@ -33,4 +33,5 @@ const Map<String, String> enUS = {
 
   'appSettings': 'App Settings',
   'others': 'Others',
+  'localFiles': 'Local Files',
 };

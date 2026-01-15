@@ -3,6 +3,7 @@ import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/dialogs/dialogs.dart';
+import 'package:one_loop/views/local_view.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -42,6 +43,11 @@ class _SettingsViewState extends State<SettingsView> {
         FTileGroup(
           label: Text('others'.tr, style: TextStyle(fontFamily: 'PuHui'),),
           children: [
+            FTile(
+              title: Text("localFiles".tr),
+              prefix: Icon(Icons.folder_open_rounded),
+              onPress: () => Get.to(() => LocalView()),
+            ),
             FTile(
               title: Text('about'.tr),
               prefix: Icon(Icons.info_rounded),
