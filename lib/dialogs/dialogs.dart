@@ -25,10 +25,6 @@ void showErrOkDialog(BuildContext context, String title, String content) {
                   fontFamily: "PuHui",
                   color: Colors.white
                 ),
-                textHeightBehavior: const TextHeightBehavior(
-                  applyHeightToFirstAscent: false,
-                  applyHeightToLastDescent: false,
-                ),
               ),
             ),
             onPress: () {
@@ -59,10 +55,6 @@ Future<bool?> showConfirmDialog(BuildContext context, String title, String conte
                 style: TextStyle(
                   fontFamily: "PuHui",
                 ),
-                textHeightBehavior: const TextHeightBehavior(
-                  applyHeightToFirstAscent: false,
-                  applyHeightToLastDescent: false,
-                ),
               ),
             ),
             onPress: () {
@@ -77,10 +69,6 @@ Future<bool?> showConfirmDialog(BuildContext context, String title, String conte
                 style: TextStyle(
                   fontFamily: "PuHui",
                   color: Colors.white
-                ),
-                textHeightBehavior: const TextHeightBehavior(
-                  applyHeightToFirstAscent: false,
-                  applyHeightToLastDescent: false,
                 ),
               ),
             ),
@@ -110,7 +98,6 @@ Future<void> showRenameDialog(BuildContext context, String oldName) async {
         builder: (context, setState)=> FTextField(
           autofocus: true,
           hint: oldName,
-          // controller: nameController,
           control: FTextFieldControl.managed(
             controller: nameController
           ),
@@ -126,10 +113,6 @@ Future<void> showRenameDialog(BuildContext context, String oldName) async {
               style: TextStyle(
                 fontFamily: "PuHui"
               ),
-              textHeightBehavior: const TextHeightBehavior(
-                applyHeightToFirstAscent: false,
-                applyHeightToLastDescent: false,
-              ),
             ),
           ),
           onPress: () {
@@ -144,10 +127,6 @@ Future<void> showRenameDialog(BuildContext context, String oldName) async {
               style: TextStyle(
                 fontFamily: "PuHui",
                 color: Colors.white
-              ),
-              textHeightBehavior: const TextHeightBehavior(
-                applyHeightToFirstAscent: false,
-                applyHeightToLastDescent: false,
               ),
             ),
           ),
@@ -209,10 +188,6 @@ void showLanguageDialog(BuildContext context) async {
               style: TextStyle(
                 fontFamily: "PuHui",
                 color: Colors.white
-              ),
-              textHeightBehavior: const TextHeightBehavior(
-                applyHeightToFirstAscent: false,
-                applyHeightToLastDescent: false,
               ),
             ),
           ),
@@ -336,11 +311,7 @@ Future<void> showAbout(BuildContext context) async {
                 style: TextStyle(
                   fontFamily: "PuHui",
                   color: Colors.white
-                ),
-                textHeightBehavior: const TextHeightBehavior(
-                  applyHeightToFirstAscent: false,
-                  applyHeightToLastDescent: false,
-                ),
+                )
               ),
             ),
           )

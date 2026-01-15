@@ -69,7 +69,13 @@ class _MainAppState extends State<MainApp> {
               defaultFontFamily: "PuHui",
             )
           ),
-          child: FToaster(child: child!)
+          child: DefaultTextHeightBehavior(
+            textHeightBehavior: const TextHeightBehavior(
+              applyHeightToFirstAscent: false,
+              applyHeightToLastDescent: false,
+            ),
+            child: FToaster(child: child!)
+          )
         ),
         debugShowCheckedModeBanner: false,
         home: MainView()

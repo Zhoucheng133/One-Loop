@@ -157,10 +157,6 @@ class _AddViewState extends State<AddView> {
                               fontFamily: "PuHui",
                               color: Colors.white
                             ),
-                            textHeightBehavior: const TextHeightBehavior(
-                              applyHeightToLastDescent: false,
-                              applyHeightToFirstAscent: false
-                            ),
                           ),
                         )
                       ),
