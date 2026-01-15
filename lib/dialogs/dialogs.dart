@@ -223,7 +223,6 @@ Future<void> showAbout(BuildContext context) async {
             Text(
               'One Loop',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
                 fontSize: 18,
                 fontFamily: "PuHui"
               ),
