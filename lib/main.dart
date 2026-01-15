@@ -63,12 +63,7 @@ class _MainAppState extends State<MainApp> {
         ],
         theme: brightness==Brightness.dark ? FThemes.violet.dark.toApproximateMaterialTheme() : FThemes.violet.light.toApproximateMaterialTheme(),
         builder: (_, child) => FAnimatedTheme(
-          data: FThemeData(
-            colors: brightness==Brightness.dark ? FThemes.violet.dark.colors : FThemes.violet.light.colors, 
-            typography: FTypography(
-              defaultFontFamily: "PuHui",
-            )
-          ),
+          data: brightness==Brightness.dark ? FThemes.violet.dark : FThemes.violet.light,
           child: DefaultTextHeightBehavior(
             textHeightBehavior: const TextHeightBehavior(
               applyHeightToFirstAscent: false,

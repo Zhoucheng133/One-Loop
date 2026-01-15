@@ -58,9 +58,6 @@ class _LocalViewState extends State<LocalView> {
         itemCount: ls.length,
         itemBuilder: (BuildContext context, int index)=>Text(
           p.basename(ls[index].path),
-          style: TextStyle(
-            fontFamily: 'PuHui',
-          ),
         ),
       )
     );

@@ -125,7 +125,7 @@ class _AddViewState extends State<AddView> {
                   const SizedBox(height: 10),
                   FTextField(
                     autofocus: true,
-                    label: Text('name'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+                    label: Text('name'.tr),
                     control: FTextFieldControl.managed(
                       controller: nameController,
                     ),
@@ -151,7 +151,6 @@ class _AddViewState extends State<AddView> {
                           child: Text(
                             "select".tr,
                             style: TextStyle(
-                              fontFamily: "PuHui",
                               color: Colors.white
                             ),
                           ),
@@ -180,14 +179,14 @@ class _AddViewState extends State<AddView> {
                 children: [
                   const SizedBox(height: 10),
                   FTextField(
-                    label: Text('name'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+                    label: Text('name'.tr),
                     control: FTextFieldControl.managed(
                       controller: nameController,
                     ),
                   ),
                   const SizedBox(height: 10),
                   FTextField(
-                    label: Text('link'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+                    label: Text('link'.tr),
                     hint: "http(s)://",
                     control: FTextFieldControl.managed(
                       controller: linkController,

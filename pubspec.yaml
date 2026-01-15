@@ -31,7 +31,3 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-  fonts:
-  - family: "PuHui"
-    fonts:
-      - asset: fonts/AlibabaPuHuiTi-3-Regular.ttf

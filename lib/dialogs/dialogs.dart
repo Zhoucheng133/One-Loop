@@ -13,8 +13,8 @@ void showErrOkDialog(BuildContext context, String title, String content) {
         style: style.call,
         animation: animation,
         direction: Axis.horizontal,
-        title: Text(title, style: TextStyle(fontFamily: "PuHui")),
-        body: Text(content, style: TextStyle(fontFamily: "PuHui")),
+        title: Text(title),
+        body: Text(content),
         actions: [
           FButton.raw(
             child: Padding(
@@ -22,7 +22,6 @@ void showErrOkDialog(BuildContext context, String title, String content) {
               child: Text(
                 'ok'.tr,
                 style: TextStyle(
-                  fontFamily: "PuHui",
                   color: Colors.white
                 ),
               ),
@@ -43,8 +42,8 @@ Future<bool?> showConfirmDialog(BuildContext context, String title, String conte
       style: style.call,
       animation: animation,
       direction: Axis.horizontal,
-        title: Text(title, style: TextStyle(fontFamily: "PuHui"),),
-        body: Text(content, style: TextStyle(fontFamily: "PuHui"),),
+        title: Text(title),
+        body: Text(content),
         actions: [
           FButton.raw(
             style: FButtonStyle.outline(),
@@ -52,9 +51,6 @@ Future<bool?> showConfirmDialog(BuildContext context, String title, String conte
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
               child: Text(
                 'cancel'.tr,
-                style: TextStyle(
-                  fontFamily: "PuHui",
-                ),
               ),
             ),
             onPress: () {
@@ -67,7 +63,6 @@ Future<bool?> showConfirmDialog(BuildContext context, String title, String conte
               child: Text(
                 okText.tr,
                 style: TextStyle(
-                  fontFamily: "PuHui",
                   color: Colors.white
                 ),
               ),
@@ -93,7 +88,7 @@ Future<void> showRenameDialog(BuildContext context, String oldName) async {
       style: style.call,
       animation: animation,
       direction: Axis.horizontal,
-      title: Text('rename'.tr, style: TextStyle(fontFamily: "PuHui"),),
+      title: Text('rename'.tr),
       body: StatefulBuilder(
         builder: (context, setState)=> FTextField(
           autofocus: true,
@@ -110,9 +105,6 @@ Future<void> showRenameDialog(BuildContext context, String oldName) async {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             child: Text(
               'cancel'.tr,
-              style: TextStyle(
-                fontFamily: "PuHui"
-              ),
             ),
           ),
           onPress: () {
@@ -125,7 +117,6 @@ Future<void> showRenameDialog(BuildContext context, String oldName) async {
             child: Text(
               'ok'.tr,
               style: TextStyle(
-                fontFamily: "PuHui",
                 color: Colors.white
               ),
             ),
@@ -186,7 +177,6 @@ void showLanguageDialog(BuildContext context) async {
             child: Text(
               'ok'.tr,
               style: TextStyle(
-                fontFamily: "PuHui",
                 color: Colors.white
               ),
             ),
@@ -210,7 +200,7 @@ Future<void> showAbout(BuildContext context) async {
         style: style.call,
         animation: animation,
         direction: Axis.horizontal,
-        title: Text('about'.tr, style: TextStyle(fontFamily: "PuHui"),),
+        title: Text('about'.tr),
         body: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -224,7 +214,7 @@ Future<void> showAbout(BuildContext context) async {
               'One Loop',
               style: TextStyle(
                 fontSize: 18,
-                fontFamily: "PuHui"
+                fontWeight: FontWeight.bold
               ),
             ),
             const SizedBox(height: 3,),
@@ -233,7 +223,6 @@ Future<void> showAbout(BuildContext context) async {
               style: TextStyle(
                 fontSize: 13,
                 color: Colors.grey[400],
-                fontFamily: "PuHui"
               ),
             ),
             const SizedBox(height: 20,),
@@ -258,7 +247,6 @@ Future<void> showAbout(BuildContext context) async {
                       child: Text(
                         'projUrl'.tr,
                         style: TextStyle(
-                          fontFamily: "PuHui",
                           fontSize: 13,
                         ),
                       ),
@@ -289,7 +277,6 @@ Future<void> showAbout(BuildContext context) async {
                       "license".tr,
                       style: TextStyle(
                         fontSize: 13,
-                        fontFamily: "PuHui"
                       ),
                     ),
                   )
@@ -308,7 +295,6 @@ Future<void> showAbout(BuildContext context) async {
               child: Text(
                 'ok'.tr,
                 style: TextStyle(
-                  fontFamily: "PuHui",
                   color: Colors.white
                 )
               ),

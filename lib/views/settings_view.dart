@@ -21,7 +21,7 @@ class _SettingsViewState extends State<SettingsView> {
       padding: EdgeInsets.zero,
       children: [
         FTileGroup(
-          label: Text('appSettings'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+          label: Text('appSettings'.tr),
           children: [
             FTile(
               title: Text('language'.tr),
@@ -41,7 +41,7 @@ class _SettingsViewState extends State<SettingsView> {
           ],
         ),
         FTileGroup(
-          label: Text('others'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+          label: Text('others'.tr),
           children: [
             FTile(
               title: Text("localFiles".tr),
