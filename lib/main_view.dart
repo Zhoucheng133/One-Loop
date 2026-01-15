@@ -25,12 +25,12 @@ class _MainViewState extends State<MainView> {
             padding: const EdgeInsets.all(10.0),
             child: Text(controller.currentPage.value.name.tr),
           ),
-          suffixes: [
+          suffixes: controller.currentPage.value==Pages.home ? [
             FHeaderAction(icon: const Icon(FIcons.plus), onPress: () {
               Get.to(()=>AddView());
             }),
             const SizedBox(width: 10.0,)
-          ],
+          ] : [],
         ),
         resizeToAvoidBottomInset: false,
         footer: FBottomNavigationBar(
