@@ -91,7 +91,6 @@ Future<void> showRenameDialog(BuildContext context, String oldName) async {
       title: Text('rename'.tr),
       body: StatefulBuilder(
         builder: (context, setState)=> FTextField(
-          autofocus: true,
           hint: oldName,
           control: FTextFieldControl.managed(
             controller: nameController

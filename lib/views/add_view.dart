@@ -124,7 +124,6 @@ class _AddViewState extends State<AddView> {
                 children: [
                   const SizedBox(height: 10),
                   FTextField(
-                    autofocus: true,
                     label: Text('name'.tr),
                     control: FTextFieldControl.managed(
                       controller: nameController,
