@@ -26,10 +26,17 @@ class _MainViewState extends State<MainView> {
             child: Text(controller.currentPage.value.name.tr),
           ),
           suffixes: controller.currentPage.value==Pages.home ? [
-            FHeaderAction(icon: const Icon(FIcons.plus), onPress: () {
-              Get.to(()=>AddView());
-            }),
-            const SizedBox(width: 10.0,)
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: FButton.icon(
+                style: FButtonStyle.ghost(),
+                onPress: () => Get.to(()=>AddView()),
+                child: Icon(
+                  FIcons.plus,
+                  size: 30,
+                )
+              ),
+            )
           ] : [],
         ),
         resizeToAvoidBottomInset: false,

@@ -84,18 +84,29 @@ class _AddViewState extends State<AddView> {
       resizeToAvoidBottomInset: false,
       header: FHeader.nested(
         title: Text('add'.tr),
-        prefixes: [FHeaderAction.back(onPress: () => Get.back())],
+        prefixes: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: FButton.icon(
+              style: FButtonStyle.ghost(),
+              onPress: () => Get.back(),
+              child: Icon(
+                FIcons.arrowLeft,
+                size: 25,
+              )
+            ),
+          )
+        ],
         suffixes: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: FHeaderAction(
-              icon: Icon(
-                Icons.add_rounded,
-                size: 30,
-              ),
-              onPress: () {
-                add(context);
-              },
+            child: FButton.icon(
+              style: FButtonStyle.ghost(),
+              onPress: () => add(context),
+              child: Icon(
+                FIcons.plus,
+                size: 25,
+              )
             ),
           ),
         ],
