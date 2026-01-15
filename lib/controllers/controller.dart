@@ -66,10 +66,11 @@ class Controller extends GetxController {
     prefs.setStringList("audioList", audioList.map((e) => jsonEncode(e.toJson())).toList());
   }
 
-  void removeAudio(AudioItem audio){
+  Future<void> removeAudio(AudioItem audio) async {
+    final appDir = await getApplicationDocumentsDirectory();
     audioList.removeWhere((element) => element.name==audio.name);
     if(audio.type==AudioType.file){
-      File(audio.path).delete();
+      File(p.join(appDir.path, 'audioFiles', audio.path)).delete();
     }
     prefs.setStringList("audioList", audioList.map((e) => jsonEncode(e.toJson())).toList());
   }
