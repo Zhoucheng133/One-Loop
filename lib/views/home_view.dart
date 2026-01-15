@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/dialogs/dialogs.dart';
@@ -22,23 +23,27 @@ class _HomeViewState extends State<HomeView> {
       builder: (context)=>Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ListTile(
-            leading: Icon(Icons.edit_rounded),
-            title: Text('rename'.tr),
-            onTap: () async {
-              Navigator.pop(context);
-              await showRenameDialog(context, controller.audioList[index].name);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.delete_rounded),
-            title: Text('delete'.tr),
-            onTap: () async {
-              Navigator.pop(context);
-              if(await showConfirmDialog(context, "deleteAudio".tr, "deleteAudioContent".tr, okText: 'delete') ?? false){
-                controller.removeAudio(controller.audioList[index]);
-              }
-            },
+          FTileGroup(
+            children: [
+              FTile(
+                prefix: Icon(Icons.edit_rounded),
+                title: Text('rename'.tr),
+                onPress: () async {
+                  Navigator.pop(context);
+                  await showRenameDialog(context, controller.audioList[index].name);
+                },
+              ),
+              FTile(
+                prefix: Icon(Icons.delete_rounded),
+                title: Text('delete'.tr),
+                onPress: () async {
+                  Navigator.pop(context);
+                  if(await showConfirmDialog(context, "deleteAudio".tr, "deleteAudioContent".tr, okText: 'delete') ?? false){
+                    controller.removeAudio(controller.audioList[index]);
+                  }
+                },
+              ),
+            ],
           ),
           SizedBox(height: MediaQuery.of(context).padding.bottom,),
         ],
@@ -68,27 +73,30 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ) : ListView.builder(
+        padding: EdgeInsetsGeometry.zero,
         itemCount: controller.audioList.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              controller.audioList[index].name,
-            ),
-            // subtitle: Text(p.basename(controller.audioList[index].path)),
-            subtitle: Text(
-              controller.audioList[index].type==AudioType.file ? 'file'.tr : 'network'.tr,
-              style: TextStyle(
-                color: Colors.grey
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: FTile(
+              title: Text(
+                controller.audioList[index].name,
               ),
+              subtitle: Text(
+                controller.audioList[index].type==AudioType.file ? 'file'.tr : 'network'.tr,
+                style: TextStyle(
+                  color: Colors.grey
+                ),
+              ),
+              suffix: IconButton(
+                onPressed: ()=>showSheet(context, index), 
+                icon: Icon(Icons.more_vert_rounded)
+              ),
+              onLongPress: () => showSheet(context, index),
+              onPress: (){
+                Get.to(()=>PlayView(audioItem: controller.audioList[index],));
+              },
             ),
-            trailing: IconButton(
-              onPressed: ()=>showSheet(context, index), 
-              icon: Icon(Icons.more_vert_rounded)
-            ),
-            onLongPress: () => showSheet(context, index),
-            onTap: (){
-              Get.to(()=>PlayView(audioItem: controller.audioList[index],));
-            },
           );
         },
       )

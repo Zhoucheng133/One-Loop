@@ -4,6 +4,8 @@ const Map<String, String> enUS = {
   'settings': 'Settings',
   'listNone': 'List is empty',
   'add': 'Add',
+  'addFromFile': 'Add from file',
+  'addFromNetwork': 'Add from network',
   'file': 'File',
   'network': 'Network',
   'type': 'Type',
@@ -28,4 +30,7 @@ const Map<String, String> enUS = {
   'about': 'About',
   'projUrl': 'Project URL',
   'license': 'License',
+
+  'appSettings': 'App Settings',
+  'others': 'Others',
 };

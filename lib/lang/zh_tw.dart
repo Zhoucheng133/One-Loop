@@ -4,6 +4,8 @@ const Map<String, String> zhTW = {
   'settings': '設定',
   'listNone': '列表為空',
   'add': '新增',
+  'addFromFile': '新增從檔案',
+  'addFromNetwork': '新增從網路',
   'file': '檔案',
   'network': '網路',
   'type': '類型',
@@ -28,4 +30,7 @@ const Map<String, String> zhTW = {
   'about': '關於',
   'projUrl': '專案地址',
   'license': '授權條款',
+
+  'appSettings': '應用設定',
+  'others': '其他',
 };

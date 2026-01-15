@@ -4,6 +4,8 @@ const Map<String, String> zhCN = {
   'settings': '设置',
   'listNone': '列表为空',
   'add': '添加',
+  'addFromFile': '从文件添加',
+  'addFromNetwork': '从网络添加',
   'file': '文件',
   'network': '网络',
   'type': '类型',
@@ -28,4 +30,7 @@ const Map<String, String> zhCN = {
   'about': '关于',
   'projUrl': '项目地址',
   'license': '许可证',
+
+  'appSettings': '应用设置',
+  'others': '其他',
 };

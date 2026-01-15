@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:one_loop/controllers/audio.dart';
 import 'package:one_loop/controllers/controller.dart';
@@ -32,13 +33,19 @@ class _PlayViewState extends State<PlayView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('play'.tr),
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
-        scrolledUnderElevation: 0.0,
+    return FScaffold(
+      header: FHeader.nested(
+        prefixes: [
+          FHeaderAction.back(
+            onPress: () => Get.back(),
+          ),
+        ],
+        title: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text('play'.tr),
+        ),
       ),
-      body: Center(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,8 +57,9 @@ class _PlayViewState extends State<PlayView> {
               ),
             ),
             const SizedBox(height: 20.0),
-            IconButton(
-              onPressed: (){
+            FButton.icon(
+              style: FButtonStyle.ghost(),
+              onPress: (){
                 if(playing){
                   audio.pause();
                   setState(() {
@@ -65,7 +73,7 @@ class _PlayViewState extends State<PlayView> {
                   });
                 }
               }, 
-              icon: Icon(
+              child: Icon(
                 playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
                 size: 50.0,
               )

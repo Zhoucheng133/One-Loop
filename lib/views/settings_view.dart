@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/dialogs/dialogs.dart';
@@ -16,26 +17,37 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.zero,
       children: [
-        ListTile(
-          title: Text('language'.tr),
-          leading: Icon(Icons.language_rounded),
-          onTap: () => showLanguageDialog(context)
+        FTileGroup(
+          label: Text('appSettings'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+          children: [
+            FTile(
+              title: Text('language'.tr),
+              prefix: Icon(Icons.language_rounded),
+              onPress: () => showLanguageDialog(context)
+            ),
+            FTile(
+              title: Text('reset'.tr),
+              prefix: Icon(Icons.replay_rounded),
+              onPress: () async {
+                bool? result = await showConfirmDialog(context, 'reset'.tr, 'resetContent'.tr);
+                if(result??false){
+                  controller.reset();
+                }
+              },
+            ),
+          ],
         ),
-        ListTile(
-          title: Text('reset'.tr),
-          leading: Icon(Icons.replay_rounded),
-          onTap: () async {
-            bool? result = await showConfirmDialog(context, 'reset'.tr, 'resetContent'.tr);
-            if(result??false){
-              controller.reset();
-            }
-          },
-        ),
-        ListTile(
-          title: Text('about'.tr),
-          leading: Icon(Icons.info_rounded),
-          onTap: ()=>showAbout(context),
+        FTileGroup(
+          label: Text('others'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+          children: [
+            FTile(
+              title: Text('about'.tr),
+              prefix: Icon(Icons.info_rounded),
+              onPress: ()=>showAbout(context),
+            ),
+          ],
         ),
       ],
     );

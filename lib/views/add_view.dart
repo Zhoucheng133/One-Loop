@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:one_loop/components/add_item.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/dialogs/dialogs.dart';
 import 'package:path_provider/path_provider.dart';
@@ -80,112 +80,120 @@ class _AddViewState extends State<AddView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return FScaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
+      header: FHeader.nested(
         title: Text('add'.tr),
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
-        scrolledUnderElevation: 0.0,
-        actions: [
+        prefixes: [FHeaderAction.back(onPress: () => Get.back())],
+        suffixes: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
+            child: FHeaderAction(
               icon: Icon(
                 Icons.add_rounded,
                 size: 30,
               ),
-              onPressed: () {
+              onPress: () {
                 add(context);
               },
             ),
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AddItem(
-              label: 'type'.tr, 
-              child: SegmentedButton(
-                segments:[
-                  ButtonSegment(
-                    value: AudioType.file,
-                    icon: Icon(Icons.file_copy_rounded),
-                    label: Text('file'.tr),
-                  ),
-                  ButtonSegment(
-                    value: AudioType.network,
-                    icon: Icon(Icons.link_rounded),
-                    label: Text('network'.tr),
-                  ),
-                ],
-                selected: {type},
-                onSelectionChanged: (value) {
-                  setState(() {
-                    type = value.first;
-                  });
-                },
-              )
-            ),
-            AddItem(
-              label: 'name'.tr,
-              child: TextField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'name'.tr,
-                  isCollapsed: true,
-                  contentPadding: EdgeInsets.all(10)
-                )
-              )
-            ),
-            type == AudioType.file ?
-            AddItem(
-              label: 'file'.tr,
-              child: Row(
+      child: FTabs(
+        control: FTabControl.lifted(
+          index: type == AudioType.file ? 0 : 1, 
+          onChange: (int index){
+            setState(() {
+              type = index == 0 ? AudioType.file : AudioType.network;
+            });
+          }
+        ),
+        children: [
+          FTabEntry(
+            label: Text('file'.tr), 
+            child: FCard(
+              title: Text("addFromFile".tr),
+              child: Column(
                 children: [
-                  FilledButton(
-                    onPressed: () async {
-                      FilePickerResult? result = await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['mp3', 'wav', 'm4a', 'aac', 'ogg', 'flac'],
-                      );
-                      if (result != null) {
-                        setState(() {
-                          filePath = result.files.single.path!;
-                        });
-                      }
-                    }, 
-                    child: Text('select'.tr)
+                  const SizedBox(height: 10),
+                  FTextField(
+                    label: Text('name'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+                    control: FTextFieldControl.managed(
+                      controller: nameController,
+                    ),
                   ),
-                  const SizedBox(width: 10,),
-                  Expanded(
-                    child: filePath.isEmpty ?
-                    Container() :
-                    Text(
-                      p.basename(filePath),
-                      overflow: TextOverflow.ellipsis,
-                    )
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      FButton.raw(
+                        onPress: () async {
+                          FilePickerResult? result = await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['mp3', 'wav', 'm4a', 'aac', 'ogg', 'flac'],
+                          );
+                          if (result != null) {
+                            setState(() {
+                              filePath = result.files.single.path!;
+                            });
+                          }
+                        }, 
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+                          child: Text(
+                            "select".tr,
+                            style: TextStyle(
+                              fontFamily: "PuHui",
+                              color: Colors.white
+                            ),
+                            textHeightBehavior: const TextHeightBehavior(
+                              applyHeightToLastDescent: false,
+                              applyHeightToFirstAscent: false
+                            ),
+                          ),
+                        )
+                      ),
+                      const SizedBox(width: 10,),
+                      Expanded(
+                        child: filePath.isEmpty ?
+                        Container() :
+                        Text(
+                          p.basename(filePath),
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      )
+                    ],
                   )
                 ],
-              )
-            ) :
-            AddItem(
-              label: 'link'.tr,
-              child: TextField(
-                controller: linkController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'http(s)://',
-                  isCollapsed: true,
-                  contentPadding: EdgeInsets.all(10)
-                )
-              )
-            ),
-          ],
-        ),
+              ),
+            )
+          ),
+          FTabEntry(
+            label: Text('network'.tr), 
+            child: FCard(
+              title: Text("addFromNetwork".tr),
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  FTextField(
+                    label: Text('name'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+                    control: FTextFieldControl.managed(
+                      controller: nameController,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  FTextField(
+                    label: Text('link'.tr, style: TextStyle(fontFamily: 'PuHui'),),
+                    hint: "http(s)://",
+                    control: FTextFieldControl.managed(
+                      controller: linkController,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ),
+        ]
       ),
     );
   }

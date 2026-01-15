@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:one_loop/controllers/audio.dart';
 import 'package:one_loop/controllers/controller.dart';
@@ -60,20 +61,15 @@ class _MainAppState extends State<MainApp> {
           Locale('zh', 'CN'),
           Locale('zh', 'TW'),
         ],
-        theme: ThemeData(
-          brightness: brightness,
-          fontFamily: 'PuHui', 
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.pinkAccent,
-            brightness: brightness,
+        theme: brightness==Brightness.dark ? FThemes.violet.dark.toApproximateMaterialTheme() : FThemes.violet.light.toApproximateMaterialTheme(),
+        builder: (_, child) => FAnimatedTheme(
+          data: FThemeData(
+            colors: brightness==Brightness.dark ? FThemes.violet.dark.colors : FThemes.violet.light.colors, 
+            typography: FTypography(
+              defaultFontFamily: "PuHui",
+            )
           ),
-          textTheme: brightness==Brightness.dark ? ThemeData.dark().textTheme.apply(
-            fontFamily: 'PuHui',
-            bodyColor: Colors.white,
-            displayColor: Colors.white,
-          ) : ThemeData.light().textTheme.apply(
-            fontFamily: 'PuHui',
-          ),
+          child: FToaster(child: child!)
         ),
         debugShowCheckedModeBanner: false,
         home: MainView()
