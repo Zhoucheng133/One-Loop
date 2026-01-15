@@ -1,5 +1,7 @@
 # One Loop
 
+Also available in English. Click [HERE](/documents/en.md) to view the English version of the README
+
 ## 简介
 
 <img src="assets/icon.png" width="100px">
