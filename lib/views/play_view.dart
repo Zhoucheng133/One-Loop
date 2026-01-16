@@ -50,41 +50,39 @@ class _PlayViewState extends State<PlayView> {
           child: Text('play'.tr),
         ),
       ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              widget.audioItem.name,
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            widget.audioItem.name,
+            style: TextStyle(
+              fontSize: 20.0,
             ),
-            const SizedBox(height: 20.0),
-            FButton.icon(
-              style: FButtonStyle.ghost(),
-              onPress: (){
-                if(playing){
-                  audio.pause();
-                  setState(() {
-                    playing=false;
-                  });
-                }
-                else{
-                  audio.play();
-                  setState(() {
-                    playing=true;
-                  });
-                }
-              }, 
-              child: Icon(
-                playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                size: 50.0,
-              )
+          ),
+          const SizedBox(height: 20.0),
+          FButton.icon(
+            style: FButtonStyle.ghost(),
+            onPress: (){
+              if(playing){
+                audio.pause();
+                setState(() {
+                  playing=false;
+                });
+              }
+              else{
+                audio.play();
+                setState(() {
+                  playing=true;
+                });
+              }
+            }, 
+            child: Icon(
+              playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
+              size: 50.0,
             )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
