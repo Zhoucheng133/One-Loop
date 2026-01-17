@@ -21,6 +21,7 @@ dependencies:
   shared_preferences: ^2.5.3
   path: ^1.9.1
   forui: ^0.17.0
+  audio_service: ^0.18.18
 
 dev_dependencies:
   flutter_test:
