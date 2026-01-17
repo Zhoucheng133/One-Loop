@@ -103,13 +103,40 @@ class _PlayViewState extends State<PlayView> {
               ),
             ],
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Obx(() => 
-              FDeterminateProgress(
-                value: audio.percent.value,
-              ),
+              Material(
+                child: SliderTheme(
+                  data: SliderThemeData(
+                    overlayColor: Colors.transparent,
+                    overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0),
+                    inactiveTrackColor: Colors.grey.withAlpha(50)
+                  ),
+                  child: Slider(
+                    value: audio.percent.value, 
+                    onChanged: (value){
+                      setState(() {
+                        playing=false;
+                      });
+                      audio.player.pause();
+                      audio.percent.value=value;
+                    },
+                    onChangeEnd: (value) async {
+                      setState(() {
+                        playing=true;
+                      });
+                      await audio.player.seek(
+                        Duration(
+                          milliseconds: (audio.percent.value*audio.milliseconds.value).toInt()
+                        )
+                      );
+                      audio.player.play();
+                    }
+                  ),
+                ),
+              )
             ),
           ),
         ],

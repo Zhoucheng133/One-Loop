@@ -9,7 +9,7 @@ class Audio extends GetxController {
   late AudioPlayer player;
 
   RxDouble percent = 0.0.obs;
-  RxInt seconds = 0.obs;
+  RxInt milliseconds = 0.obs;
   Future<void> init() async {
     player = AudioPlayer();
     await player.setLoopMode(LoopMode.one);
@@ -24,7 +24,7 @@ class Audio extends GetxController {
       await player.setUrl(item.path);
     }
     if(player.duration!=null){
-      seconds.value=player.duration!.inSeconds;
+      milliseconds.value=player.duration!.inMilliseconds;
       player.positionStream.listen((position) {
         percent.value=position.inMilliseconds/player.duration!.inMilliseconds;
       });
