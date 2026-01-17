@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:one_loop/controllers/audio.dart';
 import 'package:one_loop/controllers/controller.dart';
 import 'package:one_loop/lang/en_us.dart';
 import 'package:one_loop/lang/zh_cn.dart';
@@ -18,9 +17,7 @@ Future<void> main() async {
   ]);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   final controller=Get.put(Controller());
-  final audio=Get.put(Audio());
   await controller.init();
-  await audio.init();
   runApp(const MainApp());
 }
 
@@ -43,7 +40,6 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
 
   final controller = Get.find<Controller>();
-  final Audio audio=Audio();
 
   @override
   Widget build(BuildContext context) {

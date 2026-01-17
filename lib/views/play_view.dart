@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:one_loop/controllers/audio.dart';
 import 'package:one_loop/controllers/controller.dart';
 
 class PlayView extends StatefulWidget {
@@ -16,21 +15,19 @@ class PlayView extends StatefulWidget {
 
 class _PlayViewState extends State<PlayView> {
 
-  final Audio audio=Get.find();
-  bool playing=false;
+  final Controller controller = Get.find();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      audio.setItem(widget.audioItem);
+      controller.playItem.value=widget.audioItem;
     });
   }
 
   @override
   void dispose() {
-    audio.player.stop();
-    audio.player.seek(Duration.zero);
+    controller.handler.stop();
     super.dispose();
   }
 
@@ -64,44 +61,40 @@ class _PlayViewState extends State<PlayView> {
             ),
           ),
           const SizedBox(height: 20.0),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              FButton.icon(
-                style: FButtonStyle.ghost(),
-                onPress: (){
-                  if(playing){
-                    audio.pause();
-                    setState(() {
-                      playing=false;
-                    });
-                  }
-                  else{
-                    audio.play();
-                    setState(() {
-                      playing=true;
-                    });
-                  }
-                }, 
-                child: Icon(
-                  playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                  size: 50.0,
-                )
-              ),
-              const SizedBox(width: 15.0),
-              FButton.icon(
-                style: FButtonStyle.ghost(),
-                onPress: (){
-                  audio.player.seek(Duration.zero);
-                }, 
-                child: Icon(
-                  Icons.refresh_rounded,
-                  size: 40.0,
-                )
-              ),
-            ],
+          Obx(
+            () => Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                FButton.icon(
+                  style: FButtonStyle.ghost(),
+                  onPress: (){
+                    if(controller.playing.value){
+                      controller.handler.pause();
+                    }
+                    else{
+                      controller.handler.play();
+                    }
+                  }, 
+                  child: Icon(
+                    controller.playing.value ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                    size: 50.0,
+                  )
+                ),
+                const SizedBox(width: 15.0),
+                FButton.icon(
+                  style: FButtonStyle.ghost(),
+                  onPress: (){
+                    controller.handler.seek(Duration.zero);
+                  }, 
+                  child: Icon(
+                    Icons.refresh_rounded,
+                    size: 40.0,
+                  )
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 20,),
           Padding(
@@ -115,24 +108,18 @@ class _PlayViewState extends State<PlayView> {
                     inactiveTrackColor: Colors.grey.withAlpha(50)
                   ),
                   child: Slider(
-                    value: audio.percent.value, 
+                    value: controller.percent.value, 
                     onChanged: (value){
-                      setState(() {
-                        playing=false;
-                      });
-                      audio.player.pause();
-                      audio.percent.value=value;
+                      controller.handler.pause();
+                      controller.percent.value=value;
                     },
-                    onChangeEnd: (value) async {
-                      setState(() {
-                        playing=true;
-                      });
-                      await audio.player.seek(
+                    onChangeEnd: (value) {
+                      controller.handler.seek(
                         Duration(
-                          milliseconds: (audio.percent.value*audio.milliseconds.value).toInt()
+                          milliseconds: (controller.percent.value*controller.milliseconds.value).toInt()
                         )
                       );
-                      audio.player.play();
+                      controller.playing.value=true;
                     }
                   ),
                 ),

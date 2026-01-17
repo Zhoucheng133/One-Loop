@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
+import 'package:one_loop/controllers/handler.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path/path.dart' as p;
@@ -52,6 +54,17 @@ class AudioItem{
       'type': type.index,
     };
   }
+
+  @override
+  operator ==(Object other) {
+    return other is AudioItem &&
+        name == other.name &&
+        path == other.path &&
+        type == other.type;
+  }
+
+  @override
+  int get hashCode => name.hashCode ^ path.hashCode ^ type.hashCode;
 }
 
 class Controller extends GetxController {
@@ -59,7 +72,27 @@ class Controller extends GetxController {
   Rx<LanguageType> lang=Rx(supportedLocales[0]);
   Rx<Pages> currentPage=Rx(Pages.home);
 
+  late AudioHandler handler;
+
+  // Audio >
+  RxDouble percent = 0.0.obs;
+  RxInt milliseconds = 0.obs;
+  Rx<AudioItem?> playItem = Rx<AudioItem?>(null);
+  RxBool playing = false.obs;
+  // < Audio
+
   late SharedPreferences prefs;
+
+  Future<void> initPlayer() async {
+    handler=await AudioService.init(
+      builder: () => Handler(),
+      config: const AudioServiceConfig(
+        androidStopForegroundOnPause: false,
+        androidNotificationChannelId: 'zhouc.oneloop.channel.audio',
+        androidNotificationChannelName: 'Music playback',
+      ),
+    );
+  }
 
   void addAudio(AudioItem audio){
     audioList.add(audio);
@@ -110,6 +143,7 @@ class Controller extends GetxController {
     }
 
     audioList.value=prefs.getStringList("audioList")?.map((e) => AudioItem.fromJson(jsonDecode(e))).toList() ?? [];
+    await initPlayer();
   }
   
   void changeLanguage(int index){
