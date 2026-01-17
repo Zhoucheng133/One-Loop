@@ -18,7 +18,9 @@ Future<void> main() async {
   ]);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   final controller=Get.put(Controller());
+  final audio=Get.put(Audio());
   await controller.init();
+  await audio.init();
   runApp(const MainApp());
 }
 
