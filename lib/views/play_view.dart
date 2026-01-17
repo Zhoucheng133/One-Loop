@@ -16,19 +16,22 @@ class PlayView extends StatefulWidget {
 
 class _PlayViewState extends State<PlayView> {
 
-  final audio=Audio();
+  final Audio audio=Get.find();
   bool playing=false;
 
   @override
   void initState() {
     super.initState();
-    audio.init(widget.audioItem);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      audio.setItem(widget.audioItem);
+    });
   }
 
   @override
   void dispose() {
+    audio.player.stop();
+    audio.player.seek(Duration.zero);
     super.dispose();
-    audio.player.dispose();
   }
 
   @override
@@ -61,27 +64,54 @@ class _PlayViewState extends State<PlayView> {
             ),
           ),
           const SizedBox(height: 20.0),
-          FButton.icon(
-            style: FButtonStyle.ghost(),
-            onPress: (){
-              if(playing){
-                audio.pause();
-                setState(() {
-                  playing=false;
-                });
-              }
-              else{
-                audio.play();
-                setState(() {
-                  playing=true;
-                });
-              }
-            }, 
-            child: Icon(
-              playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
-              size: 50.0,
-            )
-          )
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FButton.icon(
+                style: FButtonStyle.ghost(),
+                onPress: (){
+                  if(playing){
+                    audio.pause();
+                    setState(() {
+                      playing=false;
+                    });
+                  }
+                  else{
+                    audio.play();
+                    setState(() {
+                      playing=true;
+                    });
+                  }
+                }, 
+                child: Icon(
+                  playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                  size: 50.0,
+                )
+              ),
+              const SizedBox(width: 15.0),
+              FButton.icon(
+                style: FButtonStyle.ghost(),
+                onPress: (){
+                  audio.player.seek(Duration.zero);
+                }, 
+                child: Icon(
+                  Icons.refresh_rounded,
+                  size: 40.0,
+                )
+              ),
+            ],
+          ),
+          const SizedBox(height: 10,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Obx(() => 
+              FDeterminateProgress(
+                value: audio.percent.value,
+              ),
+            ),
+          ),
         ],
       ),
     );
